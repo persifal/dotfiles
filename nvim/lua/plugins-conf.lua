@@ -3,6 +3,28 @@ require('lualine').setup {
     options = { theme = 'everforest' }
 }
 
+-- OrgMode
+require('neorg').setup {
+    config = {
+        ['core.defaults'] = {},
+        ["core.norg.dirman"] = {
+            config = {
+                workspaces = {
+                    work = "~/notes/work",
+                    home = "~/notes/home",
+                }
+            }
+        }
+    }
+}
+
+-- Telescope
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', 'ff', builtin.find_files, {})
+vim.keymap.set('n', 'fg', builtin.live_grep, {})
+vim.keymap.set('n', 'fb', builtin.buffers, {})
+vim.keymap.set('n', 'fh', builtin.help_tags, {})
+
 --- Nvim-tree
 -- following options are the default
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`

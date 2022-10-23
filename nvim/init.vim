@@ -55,6 +55,7 @@ endfunction
 
 nnoremap <leader>r :NvimTreeRefresh<CR>
 nnoremap <leader>n :NvimTreeFindFile<CR>
+nnoremap <leader>e :NvimTreeToggle<CR>
 " this variable must be enabled for colors to be applied properly
 set termguicolors 
 " a list of groups can be found at `:help nvim_tree_highlight`
