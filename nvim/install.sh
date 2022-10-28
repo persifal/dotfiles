@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-ln -s ../nvim ~/.config/nvim 
+ln -s $(pwd) ~/.config/nvim 
