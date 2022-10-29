@@ -14,6 +14,10 @@ set number
 set mouse=a
 set signcolumn=number
 
+nnoremap <A-}> gt
+nnoremap <A-{> gT
+nnoremap <A-n> :tabnew<CR>
+
 syntax enable
 filetype plugin indent on
 
