@@ -41,6 +41,9 @@ nm('<leader>n', ':NvimTreeFindFile<CR>')
 nm('<leader>e', ':NvimTreeToggle<CR>')
 nm('<A-n>', ':tabnew<CR>')
 
+-- Autopairs
+require('nvim-autopairs').setup {}
+
 -- Lualine
 require('lualine').setup {
   options = {

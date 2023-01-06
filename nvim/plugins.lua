@@ -1,5 +1,5 @@
 local install_path = vim.fn.stdpath 'data' .. '/site/pack/packer/start/packer.nvim'
-local packer_bootstrap = false
+
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     packer_bootstrap = true
     vim.fn.system { 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path }
@@ -63,6 +63,8 @@ require('packer').startup(function(use)
     use { 'numToStr/Comment.nvim' }
     -- Detect tabstop and shiftwidth automatically
     use { 'tpope/vim-sleuth' }
+    -- Autopairs
+    use { 'windwp/nvim-autopairs' }
 
     if packer_bootstrap then
         require('packer').sync()
@@ -73,7 +75,6 @@ if packer_bootstrap then
     print 'Installing plugins...'
     return
 end
-
 
 local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePost', {
