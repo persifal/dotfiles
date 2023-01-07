@@ -21,7 +21,7 @@ opt.termguicolors = true
 opt.updatetime = 300
 opt.shortmess = 'filnxtToOFc'
 
-require('plugins')
+require('./plugins')
 
 local cmd = vim.cmd
 cmd('colorscheme night-owl')
@@ -40,6 +40,8 @@ nm('<leader>r', ':NvimTreeRefresh<CR>')
 nm('<leader>n', ':NvimTreeFindFile<CR>')
 nm('<leader>e', ':NvimTreeToggle<CR>')
 nm('<A-n>', ':tabnew<CR>')
+nm('<A-h>', 'gT')
+nm('<A-l>', 'gt')
 
 -- Autopairs
 require('nvim-autopairs').setup {}
