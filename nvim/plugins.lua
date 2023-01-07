@@ -33,9 +33,7 @@ require('packer').startup(function(use)
     use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
     use { 'haishanh/night-owl.vim' }
     use { 'hoob3rt/lualine.nvim', requires = 'kyazdani42/nvim-web-devicons' }
-    use { 'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons',
-        config = function() require("bufferline").setup {} end,
-    }
+    use { 'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
 
     -- Treesitter
     use {

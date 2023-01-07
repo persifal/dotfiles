@@ -26,7 +26,6 @@ require('./plugins')
 local cmd = vim.cmd
 cmd('colorscheme night-owl')
 cmd('let g:lightline = { \'colorscheme\': \'nightowl\'}')
-cmd('colorscheme night-owl')
 cmd('hi Comment guifg=#637777 ctermfg=243 gui=None cterm=None')
 cmd('filetype plugin indent on')
 
@@ -42,6 +41,10 @@ nm('<leader>e', ':NvimTreeToggle<CR>')
 nm('<A-n>', ':tabnew<CR>')
 nm('<A-h>', 'gT')
 nm('<A-l>', 'gt')
+
+
+-- Bufferline
+require("bufferline").setup {}
 
 -- Autopairs
 require('nvim-autopairs').setup {}
@@ -73,7 +76,7 @@ require('telescope').setup {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
       },
-    },
+    },require("bufferline").setup {}
   },
 }
 local builtin = require('telescope.builtin')
