@@ -21,7 +21,7 @@ opt.termguicolors = true
 opt.updatetime = 300
 opt.shortmess = 'filnxtToOFc'
 
-require('./plugins')
+require('plugins')
 
 local cmd = vim.cmd
 cmd('colorscheme night-owl')
