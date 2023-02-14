@@ -38,9 +38,9 @@ nm('<M-BS>', '<C-w>')
 nm('<leader>r', ':NvimTreeRefresh<CR>')
 nm('<leader>n', ':NvimTreeFindFile<CR>')
 nm('<leader>e', ':NvimTreeToggle<CR>')
-nm('<A-n>', ':tabnew<CR>')
-nm('<A-h>', 'gT')
-nm('<A-l>', 'gt')
+nm('<C-n>', ':tabnew<CR>')
+nm('<C-h>', ':bprevious<CR>')
+nm('<C-l>', ':bnext<CR>')
 
 
 -- Bufferline
@@ -179,6 +179,7 @@ require('nvim-tree').setup {
   sort_by = "name",
   update_cwd = false,
   view = {
+    adaptive_size = true,
     width = 30,
     hide_root_folder = false,
     side = "left",
