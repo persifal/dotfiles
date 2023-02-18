@@ -100,7 +100,7 @@ end, { desc = '[/] Fuzzily search in current buffer]' }
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'go', 'lua', 'python', 'help', 'vim' },
+  ensure_installed = { 'go', 'lua', 'python', 'help', 'vim', 'rust' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
@@ -357,14 +357,7 @@ end
 
 -- Enable the following language servers
 local servers = {
-  pyright = {},
-
-  sumneko_lua = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
+  pyright = {}
 }
 
 -- Setup neovim lua configuration
