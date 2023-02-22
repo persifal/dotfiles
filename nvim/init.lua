@@ -34,13 +34,23 @@ local function nm(key, command)
   map('n', key, command, { noremap = true })
 end
 
-nm('<M-BS>', '<C-w>')
+local function tm(key, command)
+  map('t', key, command, { noremap = true })
+end
+
+
 nm('<leader>r', ':NvimTreeRefresh<CR>')
 nm('<leader>n', ':NvimTreeFindFile<CR>')
 nm('<leader>e', ':NvimTreeToggle<CR>')
 nm('<C-n>', ':tabnew<CR>')
 nm('<C-h>', ':bprevious<CR>')
 nm('<C-l>', ':bnext<CR>')
+nm('<A-h>', '<C-w>h')
+nm('<A-j>', '<C-w>j')
+nm('<A-k>', '<C-w>k')
+nm('<A-l>', '<C-w>l')
+
+tm('<Esc>', '<C-\\><C-n>')
 
 
 -- Bufferline
