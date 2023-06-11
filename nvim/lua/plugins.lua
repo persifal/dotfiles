@@ -31,7 +31,7 @@ require('packer').startup(function(use)
 
     -- Style
     use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
-    use { 'haishanh/night-owl.vim' }
+    use { 'rebelot/kanagawa.nvim' }
     use { 'hoob3rt/lualine.nvim', requires = 'kyazdani42/nvim-web-devicons' }
     use { 'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
 
