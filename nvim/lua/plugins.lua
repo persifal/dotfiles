@@ -8,32 +8,33 @@ end
 
 
 require('packer').startup(function(use)
-
     -- Itself
     use { 'wbthomason/packer.nvim' }
+    use {'folke/neodev.nvim'}
 
     -- LSP
     use {
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
         'neovim/nvim-lspconfig',
         requires = {
-
-            -- Automatically install LSPs to stdpath for neovim
-            'williamboman/mason.nvim',
-            'williamboman/mason-lspconfig.nvim',
-
-            -- Useful status updates for LSP
-            'j-hui/fidget.nvim',
-
-            -- Additional lua configuration, makes nvim stuff amazing
+            -- lua configuration development setup
             'folke/neodev.nvim',
         },
     }
+
+    -- DAP ui
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+    use { 'leoluz/nvim-dap-go'}
 
     -- Style
     use { 'kyazdani42/nvim-tree.lua', requires = 'kyazdani42/nvim-web-devicons' }
     use { 'rebelot/kanagawa.nvim' }
     use { 'hoob3rt/lualine.nvim', requires = 'kyazdani42/nvim-web-devicons' }
     use { 'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons' }
+
+    -- highlight references under cursor
+    use { 'RRethy/vim-illuminate' }
 
     -- Treesitter
     use {
@@ -50,20 +51,18 @@ require('packer').startup(function(use)
         requires = { 'hrsh7th/cmp-nvim-lsp', 'L3MON4D3/LuaSnip', 'saadparwaiz1/cmp_luasnip' },
     }
 
-    -- Search
-    use { 'nvim-telescope/telescope.nvim', tag = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
-    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+    -- Telescope
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.4',
+        requires = { {'nvim-lua/plenary.nvim'} }
+    }
 
     -- Misc
-    -- Add indentation guides even on blank lines
-    use { 'lukas-reineke/indent-blankline.nvim' }
     -- "gc" to comment visual regions/lines
     use { 'numToStr/Comment.nvim' }
-    -- Detect tabstop and shiftwidth automatically
-    use { 'tpope/vim-sleuth' }
     -- Autopairs
     use { 'windwp/nvim-autopairs' }
-
+    
     if packer_bootstrap then
         require('packer').sync()
     end
