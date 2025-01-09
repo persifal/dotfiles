@@ -135,22 +135,22 @@ require('lualine').setup {
 require('Comment').setup()
 
 -- Telescope
-    local builtin = require('telescope.builtin')
-    vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-    vim.keymap.set('n', '<leader>fg', builtin.current_buffer_fuzzy_find, {})
-    vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-    vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-    vim.keymap.set('n', '<M-cr>', builtin.quickfix, {})
-    require('telescope').setup {
-        defaults = {
-            mappings = {
-                i = {
-                    ['<c-u>'] = false,
-                    ['<c-d>'] = false,
-                },
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.current_buffer_fuzzy_find, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+vim.keymap.set('n', '<M-CR>', builtin.quickfix, {})
+require('telescope').setup {
+    defaults = {
+        mappings = {
+            i = {
+                ['<c-u>'] = false,
+                ['<c-d>'] = false,
             },
         },
-    }
+    },
+}
 
 -- Treesitter
 -- See `:help nvim-treesitter`
@@ -278,10 +278,14 @@ local on_attach = function(_, bufnr)
     )
 end
 
-local lspconfig = require 'lspconfig'
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+
+local lspconfig = require('lspconfig')
 lspconfig.gopls.setup {
     on_attach = on_attach,
-    capabilities = vim.lsp.protocol.make_client_capabilities(),
+    capabilities = capabilities,
     settings = {
         gopls = {
             analyses = {
@@ -291,53 +295,69 @@ lspconfig.gopls.setup {
             gofumpt = true,
         }
     },
- }
+}
+
+lspconfig.lua_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            },
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false,
+            },
+        }
+    }
+})
 
 require("mason").setup()
 require("mason-lspconfig").setup {
     ensure_installed = { "lua_ls", "gopls" }
 }
 
-      -- autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
-      -- autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-      -- autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+-- autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
+-- autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+-- autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
 vim.api.nvim_create_autocmd('BufWritePost', {
-  pattern = "*.go",
-  callback = function()
-    local params = vim.lsp.util.make_range_params()
-    params.context = {only = {"source.organizeImports"}}
-    -- buf_request_sync defaults to a 1000ms timeout. Depending on your
-    -- machine and codebase, you may want longer. Add an additional
-    -- argument after params if you find that you have to write the file
-    -- twice for changes to be saved.
-    -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
-    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
-    for cid, res in pairs(result or {}) do
-      for _, r in pairs(res.result or {}) do
-        if r.edit then
-          local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
-          vim.lsp.util.apply_workspace_edit(r.edit, enc)
+    pattern = "*.go",
+    callback = function()
+        local params = vim.lsp.util.make_range_params()
+        params.context = { only = { "source.organizeImports" } }
+        -- buf_request_sync defaults to a 1000ms timeout. Depending on your
+        -- machine and codebase, you may want longer. Add an additional
+        -- argument after params if you find that you have to write the file
+        -- twice for changes to be saved.
+        -- E.g., vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, 3000)
+        local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
+        for cid, res in pairs(result or {}) do
+            for _, r in pairs(res.result or {}) do
+                if r.edit then
+                    local enc = (vim.lsp.get_client_by_id(cid) or {}).offset_encoding or "utf-16"
+                    vim.lsp.util.apply_workspace_edit(r.edit, enc)
+                end
+            end
         end
-      end
+        vim.lsp.buf.format({ async = false })
     end
-    vim.lsp.buf.format({async = false})
-  end
 })
 
 require("dapui").setup()
 require('dap-go').setup()
 local dap, dapui = require("dap"), require("dapui")
 dap.listeners.after.event_initialized["dapui_config"] = function()
-  dapui.open()
+    dapui.open()
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
-  dapui.close()
+    dapui.close()
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
-  dapui.close()
+    dapui.close()
 end
-vim.fn.sign_define('DapBreakpoint',{ text ='🟥', texthl ='', linehl ='', numhl =''})
-vim.fn.sign_define('DapStopped',{ text ='▶️', texthl ='', linehl ='', numhl =''})
+vim.fn.sign_define('DapBreakpoint', { text = '🟥', texthl = '', linehl = '', numhl = '' })
+vim.fn.sign_define('DapStopped', { text = '▶️', texthl = '', linehl = '', numhl = '' })
 local dap_debug = require 'dap'
 vim.keymap.set('n', '<F12>', dap_debug.continue)
 vim.keymap.set('n', '<F7>', dap_debug.step_into)
@@ -350,9 +370,6 @@ vim.keymap.set('n', '<leader>b', dap_debug.toggle_breakpoint)
 require('neodev').setup {
     library = { plugins = { "nvim-dap-ui" }, types = true },
 }
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
@@ -377,7 +394,41 @@ cmp.setup {
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
+        { name = 'codecompanion' },
+        { name = 'render-markdown' },
     }, {
         { name = 'buffer' }
     })
+}
+
+require('codecompanion').setup {
+    display = {
+        chat = {
+            window = {
+                position = "right",
+                width = 0.3,
+            },
+            intro_message = "Prompt... Press ? for options",
+        },
+    },
+    strategies = {
+        chat = {
+            adapter = "anthropic",
+        },
+        inline = {
+            adapter = "anthropic",
+        },
+        cmd = {
+            adapter = "anthropic",
+        }
+    },
+    adapters = {
+        anthropic = function()
+            return require("codecompanion.adapters").extend("anthropic", {
+                env = {
+                    api_key = "ANTHROPIC_API_KEY",
+                },
+            })
+        end,
+    },
 }
