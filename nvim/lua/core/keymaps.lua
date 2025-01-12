@@ -53,12 +53,15 @@ nm('[d', vim.diagnostic.goto_prev)
 nm(']d', vim.diagnostic.goto_next)
 
 -- Telescope mappings
-local telescopeBuiltin = require('telescope.builtin')
-map('n', '<leader>ff', telescopeBuiltin.find_files, {})
-map('n', '<leader>fg', telescopeBuiltin.current_buffer_fuzzy_find, {})
-map('n', '<leader>fb', telescopeBuiltin.buffers, {})
-map('n', '<leader>fh', telescopeBuiltin.help_tags, {})
-map('n', '<M-CR>', telescopeBuiltin.quickfix, {})
+local status_ok, telescope = pcall(require, "telescope.builtin")
+if not status_ok then
+    return
+end
+map('n', '<leader>ff', telescope.find_files, {})
+map('n', '<leader>fg', telescope.current_buffer_fuzzy_find, {})
+map('n', '<leader>fb', telescope.buffers, {})
+map('n', '<leader>fh', telescope.help_tags, {})
+map('n', '<M-CR>', telescope.quickfix, {})
 
 -- Debug mappings
 local dap = require('dap')

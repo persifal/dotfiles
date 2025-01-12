@@ -5,7 +5,6 @@ require('core.keymaps')
 require('core.autocmds')
 
 vim.g.mapleader = '\\'
-vim.cmd('colorscheme kanagawa')
 vim.cmd('hi Comment guifg=#637777 ctermfg=243 gui=None cterm=None')
 vim.cmd('filetype plugin indent on')
 

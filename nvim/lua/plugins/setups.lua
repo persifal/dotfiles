@@ -37,8 +37,7 @@ require('telescope').setup {
 
 -- Treesitter
 require('nvim-treesitter.configs').setup {
-    -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'go', 'lua', 'python', 'help', 'vim' },
+    ensure_installed = { 'go', 'lua', 'python', 'vim', "markdown", "markdown_inline" },
 
     highlight = { enable = true },
     indent = { enable = true, disable = { 'python' } },
@@ -53,9 +52,8 @@ require('nvim-treesitter.configs').setup {
     textobjects = {
         select = {
             enable = true,
-            lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+            lookahead = true,
             keymaps = {
-                -- You can use the capture groups defined in textobjects.scm
                 ['aa'] = '@parameter.outer',
                 ['ia'] = '@parameter.inner',
                 ['af'] = '@function.outer',
@@ -193,4 +191,3 @@ require('codecompanion').setup {
 -- Debug
 require("dapui").setup()
 require('dap-go').setup()
-
