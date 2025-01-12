@@ -71,7 +71,6 @@ require('packer').startup(function(use)
 
     use {
         'MeanderingProgrammer/render-markdown.nvim',
-        ft = { "markdown", "codecompanion" },
         after = { 'nvim-treesitter' },
         requires = {
             'nvim-treesitter/nvim-treesitter',
@@ -79,8 +78,7 @@ require('packer').startup(function(use)
         },
         config = function()
             require('render-markdown').setup({
-                ft = { "markdown", "codecompanion" },
-                file_types = { 'markdown', 'codecompanion' },
+                filetypes = { 'markdown', 'codecompanion' },
             })
         end,
     }

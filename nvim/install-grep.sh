@@ -10,5 +10,3 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     fi
 fi
 
-echo "Linking to ~/.config/nvim..."
-ln -s $(pwd) ~/.config/nvim 
