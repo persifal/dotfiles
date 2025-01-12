@@ -53,8 +53,8 @@ nm('[d', vim.diagnostic.goto_prev)
 nm(']d', vim.diagnostic.goto_next)
 
 -- Telescope mappings
-local status_ok, telescope = pcall(require, "telescope.builtin")
-if not status_ok then
+local ok, telescope = pcall(require, "telescope.builtin")
+if not ok then
     return
 end
 map('n', '<leader>ff', telescope.find_files, {})

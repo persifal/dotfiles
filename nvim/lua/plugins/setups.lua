@@ -13,7 +13,7 @@ require('nvim-autopairs').setup {}
 -- Lualine
 require('lualine').setup {
     options = {
-        theme = 'everforest',
+        theme = 'iceberg_dark',
         icons_enabled = true,
         component_separators = ' ',
         section_separators = '',

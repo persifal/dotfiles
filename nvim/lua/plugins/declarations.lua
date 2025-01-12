@@ -49,12 +49,12 @@ require('lazy').setup({
         dependencies = { 'nvim-tree/nvim-web-devicons' }
     },
     {
-        'rebelot/kanagawa.nvim',
+        'cocopon/iceberg.vim',
         lazy = false,
         priority = 1000,
         config = function()
-            require('kanagawa').setup()
-            vim.cmd("colorscheme kanagawa")
+            -- require('iceberg').setup()
+            vim.cmd("colorscheme iceberg")
         end,
     },
     { 'hoob3rt/lualine.nvim',    dependencies = { 'nvim-tree/nvim-web-devicons' } },
