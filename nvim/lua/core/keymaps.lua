@@ -71,3 +71,6 @@ map('n', '<F8>', dap.step_over, {})
 map('n', '<F2>', dap.terminate, {})
 map('n', '<leader>cb', dap.clear_breakpoints, {})
 map('n', '<leader>b', dap.toggle_breakpoint, {})
+
+-- Comment
+im('<C-_>', '<Esc>gcc^i')
