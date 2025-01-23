@@ -15,7 +15,8 @@ end
 -- File explorer
 nm('<leader>r', ':NvimTreeRefresh<CR>')
 nm('<leader>n', ':NvimTreeFindFile<CR>')
-nm('<leader>e', ':NvimTreeToggle<CR>')
+nm('<M-1>', ':NvimTreeToggle<CR>')
+
 
 -- Buffer navigation
 nm('<C-n>', ':tabnew<CR>')

@@ -153,6 +153,7 @@ cmp.setup {
 }
 
 -- AI
+local ai_proxy = os.getenv("ANTHROPIC_PROXY")
 require('codecompanion').setup {
     display = {
         chat = {
@@ -178,6 +179,10 @@ require('codecompanion').setup {
         }
     },
     adapters = {
+        opts = {
+            allow_insecure = false,
+            proxy = ai_proxy,
+        },
         anthropic = function()
             return require("codecompanion.adapters").extend("anthropic", {
                 env = {
