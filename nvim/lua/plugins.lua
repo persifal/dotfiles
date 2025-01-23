@@ -67,14 +67,6 @@ require('lazy').setup({
     {
         'nvim-treesitter/nvim-treesitter',
         build = ":TSUpdate",
-    --     config = function()
-    --         require('nvim-treesitter.configs').setup({
-    --             ensure_installed = { "lua" }, -- Make sure lua is included
-    --             highlight = {
-    --                 enable = true,
-    --             },
-    --         })
-    --     end,
     },
     {
         'nvim-treesitter/nvim-treesitter-textobjects',

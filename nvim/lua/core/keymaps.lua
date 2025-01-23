@@ -74,4 +74,8 @@ map('n', '<leader>cb', dap.clear_breakpoints, {})
 map('n', '<leader>b', dap.toggle_breakpoint, {})
 
 -- Comment
-im('<C-_>', '<Esc>gcc^i')
+-- Ctrl+/
+vim.keymap.set('n', '<C-_>', function()
+    require('Comment.api').toggle.linewise.current()
+end)
+

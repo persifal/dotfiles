@@ -1,5 +1,3 @@
--- declare plugins
--- apply core
--- apply plugins confs
-require('core')
 require('plugins')
+require('plugins-conf')
+require('core')
