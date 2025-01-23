@@ -19,28 +19,29 @@ apt-get update
 apt-get install -y dante-server
 
 # Backup existing config
-if [ -f /etc/dante.conf ]; then
-    mv /etc/dante.conf /etc/dante.conf.backup
+if [ -f /etc/danted.conf ]; then
+    mv /etc/danted.conf /etc/danted.conf.backup
 fi
 
 # Config
-cat > /etc/dante.conf << 'EOL'
+cat > /etc/danted.conf << 'EOL'
 logoutput: syslog
-user.unprivileged: socks
+user.privileged: root
+user.unprivileged: nobody
 
 internal: 0.0.0.0 port=1080
 external: wg0
 
-method: none
+socksmethod: username
 
-# Client rules
 client pass {
     from: 0.0.0.0/0 to: 0.0.0.0/0
 }
 
-# SOCKS rules
 socks pass {
     from: 0.0.0.0/0 to: 0.0.0.0/0
+    protocol: tcp udp
+    method: username
 }
 EOL
 
