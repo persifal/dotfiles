@@ -196,3 +196,29 @@ require('codecompanion').setup {
 -- Debug
 require("dapui").setup()
 require('dap-go').setup()
+
+-- todo-comment
+require('todo-comments').setup {
+    highlight = {
+        multiline = false,
+        pattern = [[.*<(KEYWORDS)]],
+        keyword = "fg",
+        after = "",
+    },
+    keywords = {
+        TODO = { icon = "🗹 ", color = "todo" }
+    },
+    colors = {
+        todo = { "CommentTodo", "#DCED31" }
+    },
+    search = {
+        pattern = [[\b(KEYWORDS)\b]], -- ripgrep regex
+        args = {
+            "--color=never",
+            "--no-heading",
+            "--with-filename",
+            "--line-number",
+            "--column",
+        },
+    },
+}

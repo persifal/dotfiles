@@ -17,7 +17,6 @@ nm('<leader>r', ':NvimTreeRefresh<CR>')
 nm('<leader>n', ':NvimTreeFindFile<CR>')
 nm('<M-1>', ':NvimTreeToggle<CR>')
 
-
 -- Buffer navigation
 nm('<C-n>', ':tabnew<CR>')
 nm('<C-h>', ':bprevious<CR>')
@@ -47,6 +46,7 @@ im('<PageDown>', '<Nop>')
 im('<PageUp>', '<Nop>')
 
 -- Terminal
+nm('<leader>t', ':terminal<CR>')
 tm('<Esc>', '<C-\\><C-n>')
 
 -- Diagnostic navigation
@@ -54,15 +54,11 @@ nm('[d', vim.diagnostic.goto_prev)
 nm(']d', vim.diagnostic.goto_next)
 
 -- Telescope mappings
-local ok, telescope = pcall(require, "telescope.builtin")
-if not ok then
-    return
-end
+local telescope = require('telescope.builtin')
 map('n', '<leader>ff', telescope.find_files, {})
 map('n', '<leader>fg', telescope.current_buffer_fuzzy_find, {})
 map('n', '<leader>fb', telescope.buffers, {})
 map('n', '<leader>fh', telescope.help_tags, {})
-map('n', '<M-CR>', telescope.quickfix, {})
 
 -- Debug mappings
 local dap = require('dap')
@@ -79,3 +75,13 @@ vim.keymap.set('n', '<C-_>', function()
     require('Comment.api').toggle.linewise.current()
 end)
 
+-- LSP
+vim.keymap.set('n', '<M-CR>', function()
+    vim.lsp.buf.code_action({
+        filter = function(actions)
+            return vim.tbl_filter(function(action)
+                return action.kind == vim.lsp.protocol.CodeActionKind.QuickFix
+            end, actions)
+        end,
+    })
+end, { noremap = true, silent = true, desc = "Apply LSP quickfix" })
